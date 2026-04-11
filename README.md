@@ -16,11 +16,28 @@ MVVM を基本としたレイヤードアーキテクチャを採用し、状態
 ### Domainレイヤー
 データモデルと複数のRepositoryを参照する機能をまとめたユースケースクラス
 
+## フォルダ構成
+- ui
+    - feature1
+        - widgets
+        - view_models
+- data
+    - repositories
+    - services
+        - local
+        - remote
+- domain
+    - models
+    - usecases
+- routing
+- util
+    - converters
+    - extensions
+
 ## 機能一覧
-- TODO
-- TODOカテゴリ
-- TODOメモ
-- TODOリマインド
-- TODOタグ
-- 削除リスト
-- TODO重要度
+- TODO(CRUD)
+- ステータス管理(未着手、進行中、完了)
+- TODO重要度(低中高)
+- TODOタグ(自由に追加)
+- 並び替え、フィルタ(重要度順、期限順、タグ)
+- オフライン対応、オンライン同期
