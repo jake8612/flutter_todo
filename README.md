@@ -44,7 +44,7 @@ MVVM を基本としたレイヤードアーキテクチャを採用し、状態
 
 ## データモデル
 データ型は Dart/PostgreSQL の形式で記述
-### TODO
+### Todo
 - ID(int/integer)
 - タイトル(String/varchar(40))
 - 詳細(String/text)
