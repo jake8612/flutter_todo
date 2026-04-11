@@ -41,3 +41,13 @@ MVVM を基本としたレイヤードアーキテクチャを採用し、状態
 - TODOタグ(自由に追加)
 - 並び替え、フィルタ(重要度順、期限順、タグ)
 - オフライン対応、オンライン同期
+
+## データモデル
+データ型は Dart/PostgreSQL の形式で記述
+### TODO
+- ID(int/integer)
+- タイトル(String/varchar(40))
+- 詳細(String/text)
+- 登録日時(String/timestamp)
+- 更新日時(String/timestamp)
+- 削除日時(String?/timestamp)
