@@ -1,3 +1,5 @@
+import 'package:flutter_todo/util/converters/todo_status_converter.dart';
+import 'package:flutter_todo/util/enum.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'todo.freezed.dart';
@@ -8,7 +10,8 @@ abstract class Todo with _$Todo {
   const factory Todo({
     required int id,
     required String title,
-    required String detail,
+    @Default('') String detail,
+    @TodoStatusConverter() @Default(TodoStatus.untouched) TodoStatus status,
     required String createdAt,
     required String updatedAt,
     required String? deletedAt,

@@ -48,6 +48,10 @@ MVVM を基本としたレイヤードアーキテクチャを採用し、状態
 - ID(int/integer)
 - タイトル(String/varchar(40))
 - 詳細(String/text)
+- ステータス(int/integer)
+    - 1: 未着手
+    - 2: 進行中
+    - 3: 完了
 - 登録日時(String/timestamp)
 - 更新日時(String/timestamp)
 - 削除日時(String?/timestamp)

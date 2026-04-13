@@ -17,6 +17,8 @@ mixin _$Todo {
   int get id;
   String get title;
   String get detail;
+  @TodoStatusConverter()
+  TodoStatus get status;
   String get createdAt;
   String get updatedAt;
   String? get deletedAt;
@@ -39,6 +41,7 @@ mixin _$Todo {
             (identical(other.id, id) || other.id == id) &&
             (identical(other.title, title) || other.title == title) &&
             (identical(other.detail, detail) || other.detail == detail) &&
+            (identical(other.status, status) || other.status == status) &&
             (identical(other.createdAt, createdAt) ||
                 other.createdAt == createdAt) &&
             (identical(other.updatedAt, updatedAt) ||
@@ -50,11 +53,11 @@ mixin _$Todo {
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
-      runtimeType, id, title, detail, createdAt, updatedAt, deletedAt);
+      runtimeType, id, title, detail, status, createdAt, updatedAt, deletedAt);
 
   @override
   String toString() {
-    return 'Todo(id: $id, title: $title, detail: $detail, createdAt: $createdAt, updatedAt: $updatedAt, deletedAt: $deletedAt)';
+    return 'Todo(id: $id, title: $title, detail: $detail, status: $status, createdAt: $createdAt, updatedAt: $updatedAt, deletedAt: $deletedAt)';
   }
 }
 
@@ -67,6 +70,7 @@ abstract mixin class $TodoCopyWith<$Res> {
       {int id,
       String title,
       String detail,
+      @TodoStatusConverter() TodoStatus status,
       String createdAt,
       String updatedAt,
       String? deletedAt});
@@ -87,6 +91,7 @@ class _$TodoCopyWithImpl<$Res> implements $TodoCopyWith<$Res> {
     Object? id = null,
     Object? title = null,
     Object? detail = null,
+    Object? status = null,
     Object? createdAt = null,
     Object? updatedAt = null,
     Object? deletedAt = freezed,
@@ -104,6 +109,10 @@ class _$TodoCopyWithImpl<$Res> implements $TodoCopyWith<$Res> {
           ? _self.detail
           : detail // ignore: cast_nullable_to_non_nullable
               as String,
+      status: null == status
+          ? _self.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as TodoStatus,
       createdAt: null == createdAt
           ? _self.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -213,16 +222,22 @@ extension TodoPatterns on Todo {
 
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>(
-    TResult Function(int id, String title, String detail, String createdAt,
-            String updatedAt, String? deletedAt)?
+    TResult Function(
+            int id,
+            String title,
+            String detail,
+            @TodoStatusConverter() TodoStatus status,
+            String createdAt,
+            String updatedAt,
+            String? deletedAt)?
         $default, {
     required TResult orElse(),
   }) {
     final _that = this;
     switch (_that) {
       case _Todo() when $default != null:
-        return $default(_that.id, _that.title, _that.detail, _that.createdAt,
-            _that.updatedAt, _that.deletedAt);
+        return $default(_that.id, _that.title, _that.detail, _that.status,
+            _that.createdAt, _that.updatedAt, _that.deletedAt);
       case _:
         return orElse();
     }
@@ -243,15 +258,21 @@ extension TodoPatterns on Todo {
 
   @optionalTypeArgs
   TResult when<TResult extends Object?>(
-    TResult Function(int id, String title, String detail, String createdAt,
-            String updatedAt, String? deletedAt)
+    TResult Function(
+            int id,
+            String title,
+            String detail,
+            @TodoStatusConverter() TodoStatus status,
+            String createdAt,
+            String updatedAt,
+            String? deletedAt)
         $default,
   ) {
     final _that = this;
     switch (_that) {
       case _Todo():
-        return $default(_that.id, _that.title, _that.detail, _that.createdAt,
-            _that.updatedAt, _that.deletedAt);
+        return $default(_that.id, _that.title, _that.detail, _that.status,
+            _that.createdAt, _that.updatedAt, _that.deletedAt);
       case _:
         throw StateError('Unexpected subclass');
     }
@@ -271,15 +292,21 @@ extension TodoPatterns on Todo {
 
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>(
-    TResult? Function(int id, String title, String detail, String createdAt,
-            String updatedAt, String? deletedAt)?
+    TResult? Function(
+            int id,
+            String title,
+            String detail,
+            @TodoStatusConverter() TodoStatus status,
+            String createdAt,
+            String updatedAt,
+            String? deletedAt)?
         $default,
   ) {
     final _that = this;
     switch (_that) {
       case _Todo() when $default != null:
-        return $default(_that.id, _that.title, _that.detail, _that.createdAt,
-            _that.updatedAt, _that.deletedAt);
+        return $default(_that.id, _that.title, _that.detail, _that.status,
+            _that.createdAt, _that.updatedAt, _that.deletedAt);
       case _:
         return null;
     }
@@ -292,7 +319,8 @@ class _Todo implements Todo {
   const _Todo(
       {required this.id,
       required this.title,
-      required this.detail,
+      this.detail = '',
+      @TodoStatusConverter() this.status = TodoStatus.untouched,
       required this.createdAt,
       required this.updatedAt,
       required this.deletedAt});
@@ -303,7 +331,12 @@ class _Todo implements Todo {
   @override
   final String title;
   @override
+  @JsonKey()
   final String detail;
+  @override
+  @JsonKey()
+  @TodoStatusConverter()
+  final TodoStatus status;
   @override
   final String createdAt;
   @override
@@ -334,6 +367,7 @@ class _Todo implements Todo {
             (identical(other.id, id) || other.id == id) &&
             (identical(other.title, title) || other.title == title) &&
             (identical(other.detail, detail) || other.detail == detail) &&
+            (identical(other.status, status) || other.status == status) &&
             (identical(other.createdAt, createdAt) ||
                 other.createdAt == createdAt) &&
             (identical(other.updatedAt, updatedAt) ||
@@ -345,11 +379,11 @@ class _Todo implements Todo {
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
-      runtimeType, id, title, detail, createdAt, updatedAt, deletedAt);
+      runtimeType, id, title, detail, status, createdAt, updatedAt, deletedAt);
 
   @override
   String toString() {
-    return 'Todo(id: $id, title: $title, detail: $detail, createdAt: $createdAt, updatedAt: $updatedAt, deletedAt: $deletedAt)';
+    return 'Todo(id: $id, title: $title, detail: $detail, status: $status, createdAt: $createdAt, updatedAt: $updatedAt, deletedAt: $deletedAt)';
   }
 }
 
@@ -363,6 +397,7 @@ abstract mixin class _$TodoCopyWith<$Res> implements $TodoCopyWith<$Res> {
       {int id,
       String title,
       String detail,
+      @TodoStatusConverter() TodoStatus status,
       String createdAt,
       String updatedAt,
       String? deletedAt});
@@ -383,6 +418,7 @@ class __$TodoCopyWithImpl<$Res> implements _$TodoCopyWith<$Res> {
     Object? id = null,
     Object? title = null,
     Object? detail = null,
+    Object? status = null,
     Object? createdAt = null,
     Object? updatedAt = null,
     Object? deletedAt = freezed,
@@ -400,6 +436,10 @@ class __$TodoCopyWithImpl<$Res> implements _$TodoCopyWith<$Res> {
           ? _self.detail
           : detail // ignore: cast_nullable_to_non_nullable
               as String,
+      status: null == status
+          ? _self.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as TodoStatus,
       createdAt: null == createdAt
           ? _self.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
