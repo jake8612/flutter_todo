@@ -10,7 +10,14 @@ class MainApp extends ConsumerWidget {
     return MaterialApp.router(
       showSemanticsDebugger: false,
       title: 'Flutter TODO',
-      theme: ThemeData(colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple)),
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        filledButtonTheme: FilledButtonThemeData(
+          style: FilledButton.styleFrom(
+            textStyle: Theme.of(context).textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.bold),
+          ),
+        ),
+      ),
       routerConfig: ref.read(routerProvider),
     );
   }

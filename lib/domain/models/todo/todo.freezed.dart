@@ -315,7 +315,7 @@ extension TodoPatterns on Todo {
 
 /// @nodoc
 @JsonSerializable()
-class _Todo implements Todo {
+class _Todo extends Todo {
   const _Todo(
       {required this.id,
       required this.title,
@@ -323,7 +323,8 @@ class _Todo implements Todo {
       @TodoStatusConverter() this.status = TodoStatus.untouched,
       required this.createdAt,
       required this.updatedAt,
-      required this.deletedAt});
+      required this.deletedAt})
+      : super._();
   factory _Todo.fromJson(Map<String, dynamic> json) => _$TodoFromJson(json);
 
   @override
